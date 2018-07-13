@@ -1,4 +1,6 @@
 #include<iostream>
+#include<queue>
+#include<unordered_map>
 
 using namespace std;
 
@@ -22,6 +24,7 @@ int totalInternalNode(node *);
 int heightOfTree(node *);
 void mirrorImage(node *);
 void deleteTree(node *);
+void levelOrderTraversal(node*);
 
 int main(){
     int option,val;
@@ -41,6 +44,8 @@ int main(){
         cout<<"11.Height of Tree is\n";
         cout<<"12.Mirror Image of Tree\n";
         cout<<"13.Delete the Tree\n";
+        cout<<"14.Level Traversal\n";
+        cout<<"15.Top View\n";
         cout<<"0.Exit\n";
         cin>>option;
 
@@ -108,8 +113,14 @@ int main(){
                 cout<<"Tree is deleted";
                 deleteTree(root);
                 break;
-
-
+            case 14: 
+                cout<<"Level Traversal: ";
+                levelOrderTraversal(root);
+                break;
+            case 15:
+                cout<<"Top View: ";
+                cout<<topView(root);
+                break;
         }
     }while(option!=0);
     return 0;
@@ -184,7 +195,7 @@ node *deleteElement(node *root,int key){
     else if(key>root->data)
         root->right=deleteElement(root->right,key);
     else {
-        if(root->left==NULL)
+        if(root->left==NULL) //We can check right node also first.
         {
             node *tmp=root->right;
             delete root;
@@ -260,7 +271,7 @@ void mirrorImage(node *root)
     }
 }
 
-void deleteTree(node *root){
+void deleteTree(node *root){ //Note: Deletion is done in post order manner
     if(root!=NULL)
         {
         deleteTree(root->left);
@@ -268,3 +279,39 @@ void deleteTree(node *root){
         delete root;   
 }
 }
+
+void levelOrderTraversal(node *root){
+    queue<node*> q;
+    if(root!=NULL)
+        q.push(root);
+    while(!q.empty()){
+        node *temp=q.front();
+        q.pop();
+        cout<<temp->data<<" ";
+        if(temp->left!=NULL)
+            q.push(temp->left);
+        if(temp->right!=NULL)
+            q.push(temp->right);
+    }
+}
+/*
+void topView(node *root,int dist,int level, auto &map){
+    if(root==NULL)
+        return;
+    if(map.find(dist)==map.end()||level<map[dist].second)
+        map[dist]={root->data,level};
+
+    printTop(root->left,dist-1,level+1,map);
+    printTop(root->right,dist+1,level+1,map);
+}
+
+void topView(node *root){
+    if(root==NULL)
+        return;
+    unordered_map<int,pair<int,int> > map ;
+    topView(root,0,0,map);
+    for(auto it:map)
+        cout<<it.second.first<<" ";
+    
+}
+*/

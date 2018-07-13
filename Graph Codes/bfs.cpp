@@ -21,6 +21,7 @@ int main()
     }
     cout<<"BFS Path is: ";
     breathFirstSearch(adj,visited,0);
+    cout<<endl;
     return 0;
 }
 

@@ -1,0 +1,14 @@
+int getNode(SinglyLinkedListNode* head, int positionFromTail) {
+    SinglyLinkedListNode *ptr1=head;
+    SinglyLinkedListNode *ptr2=head;
+    int count=0;
+    while(count<positionFromTail){
+        ptr1=ptr1->next;
+        count++;
+    }
+    while(ptr1->next!=NULL){
+        ptr2=ptr2->next;
+        ptr1=ptr1->next;
+    }
+    return ptr2->data;
+}

@@ -1,0 +1,1 @@
+Take two pointers from head. Increased one pointer by 2 with every iteration and another pointer with 1. If there is loop they will somehow meet in the loop and will return 1. If any of them encounters NULL return 0.
